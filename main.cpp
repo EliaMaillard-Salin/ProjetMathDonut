@@ -12,13 +12,13 @@
 
 int main(int argc, char** argv)
 {
+    std::cout << "\033[?25l";
     std::cout << "Hello World!\n";
     
-    std::cout << "\033[H";
     std::cout << "\033[2J";
+    std::cout << "\033[H";
+    std::cout << "Hello world\n";
     std::cout << "\033[?25h";
-
-    while(1){}
 
     return 0;
 }
