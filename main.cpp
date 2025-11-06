@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include <Windows.h>
+#include "Settings.h"
+#include "Screen.h"
 
 // Clear : [2J
 // SetCursor 0,0 : [H
@@ -12,13 +13,11 @@
 
 int main(int argc, char** argv)
 {
-    std::cout << "\033[?25l";
-    std::cout << "Hello World!\n";
     
-    std::cout << "\033[2J";
-    std::cout << "\033[H";
-    std::cout << "Hello world\n";
-    std::cout << "\033[?25h";
+    Settings settings = Settings(argc, argv);
+    Screen screen = Screen(settings.GetWidth(), settings.GetHeight());
+
+    screen.Display();
 
     return 0;
 }
