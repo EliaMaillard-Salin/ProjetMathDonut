@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjetMathDonut", "ProjetMathDonut\ProjetMathDonut.vcxproj", "{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		RADIUS|x64 = RADIUS|x64
+		RADIUS|x86 = RADIUS|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		SCREEN SIZE|x64 = SCREEN SIZE|x64
+		SCREEN SIZE|x86 = SCREEN SIZE|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Debug|x64.ActiveCfg = Debug|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Debug|x64.Build.0 = Debug|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Debug|x86.ActiveCfg = Debug|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Debug|x86.Build.0 = Debug|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.RADIUS|x64.ActiveCfg = RADIUS|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.RADIUS|x64.Build.0 = RADIUS|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.RADIUS|x86.ActiveCfg = RADIUS|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.RADIUS|x86.Build.0 = RADIUS|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x64.ActiveCfg = Release|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x64.Build.0 = Release|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x86.ActiveCfg = Release|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x86.Build.0 = Release|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.SCREEN SIZE|x64.ActiveCfg = SCREEN SIZE|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.SCREEN SIZE|x64.Build.0 = SCREEN SIZE|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.SCREEN SIZE|x86.ActiveCfg = SCREEN SIZE|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.SCREEN SIZE|x86.Build.0 = SCREEN SIZE|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48C1EE83-5719-435D-9F31-A1AE590BFB9D}
+	EndGlobalSection
+EndGlobal

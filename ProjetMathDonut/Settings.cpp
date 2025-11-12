@@ -12,6 +12,8 @@ Settings::Settings(int argC, char** argV) : m_width(0), m_height(0)
             m_width = std::atoi(argV[i + 1]);
         if (std::string(argV[i]) == "-h")
             m_height = std::atoi(argV[i + 1]);
+        if (std::string(argV[i]) == "-r")
+            radius = std::atof(argV[i + 1]);
     }
 
     if (m_width == 0 || m_height == 0)
@@ -27,4 +29,9 @@ int Settings::GetHeight()
 int Settings::GetWidth()
 {
 	return m_width;
+}
+
+float Settings::GetRadius()
+{
+    return radius;
 }
