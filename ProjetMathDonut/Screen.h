@@ -10,6 +10,8 @@ class Screen
 	int centerX;
 	int centerY;
 
+	std::vector<char> m_pixels;
+
 public:
 	Screen(int width, int height);
 	void Display();

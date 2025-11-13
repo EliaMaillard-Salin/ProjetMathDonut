@@ -16,19 +16,15 @@
 
 int main(int argc, char** argv)
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    
+
     Settings settings = Settings(argc, argv);
     Screen screen = Screen(settings.GetWidth(), settings.GetHeight());
-    //Screen screen = Screen(100, 100);
 
-    Mesh mesh = Mesh(settings.GetRadius());
-
-    //while (true)
-    //{
-        screen.Draw(mesh);
-        //mesh.Debug();
-//    }
+    screen.Draw(settings.currentMesh);
+    screen.Display();
+    while (true)
+    {
+    }
 
     return 0;
 }

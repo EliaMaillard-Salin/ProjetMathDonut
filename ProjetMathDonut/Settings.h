@@ -1,17 +1,22 @@
 #pragma once
+
+#include "Mesh.h"
+
 class Settings
 {
 	int m_width;
 	int m_height;
 
-	float radius;
-
 public:
-	Settings(int argC, char** argV);
+	Mesh currentMesh;
 
+	Settings(int argC, char** argV);
+	void GenerateCircle(float radius);
+	void GenerateHalfCircle(float radius);
+	void GenerateSquare(float radius);
+	void GenerateRectangle(float radius);
 	int GetHeight();
 	int GetWidth();
-	float GetRadius();
 
 };
 
