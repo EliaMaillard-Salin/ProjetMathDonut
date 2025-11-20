@@ -14,7 +14,7 @@ class Mesh
 
 
 	Mesh& CreateSector(float radius, float angle);
-//	Mesh CreateRectangle(float width, float height);
+	Mesh& CreateRect(float width, float height);
 	int m_resolution;
 	int posX = 0;
 	int posY = 0;
@@ -27,14 +27,14 @@ public:
 
 	std::vector<Vertex> GetVertices();
 
+	void Rotate(float rotationMatrix[]);
+
 	static Mesh DefaultMesh();
-
 	static Mesh CreateCircle(float radius, int resolution = 40);
-
-	//Mesh CreateHalfCircle(float radius = 32.0f,int resolution = 10);
+	static Mesh CreateHalfCircle(float radius = 32.0f,int resolution = 10);
+	static Mesh CreateSquare(float size = 32.0f,int resolution = 10);
+	static Mesh CreateRectangle(float width,float height, int resolution = 10);
 	//Mesh CreateSquare(float radius = 32.0f,int resolution = 10);
-	//Mesh CreateSquare(float radius = 32.0f,int resolution = 10);
-	//Mesh CreateRectangle(float radius = 32.0f,int resolution = 10);
 
 	//Mesh& CreateCustom(std::vector<Vertex>);
 	//Mesh& GenerateCircle(float radius);

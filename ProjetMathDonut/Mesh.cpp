@@ -20,10 +20,24 @@ Mesh& Mesh::CreateSector(float radius, float angle)
         float r = (radius * i) / (m_resolution - 1);
         for (int j = 0; j < m_resolution; j++)
         {
-            float theta = (angle * j) / (m_resolution);
-            Vertex v;
+            float theta = (angle * j) / (m_resolution - 1);
             m_vertices[m_resolution * i + j].x = radius * std::cos(theta);
             m_vertices[m_resolution * i + j].y = radius * std::sin(theta);
+            m_vertices[m_resolution * i + j].z = 0.f;
+        }
+    }
+    return *this;
+}
+
+Mesh& Mesh::CreateRect(float width, float height)
+{
+    m_vertices.resize(m_resolution * m_resolution);
+    for (int i = 0; i < m_resolution; i++)
+    {
+        for (int j = 0; j < m_resolution; j++)
+        {
+            m_vertices[m_resolution * i + j].x = (1.f * i / (m_resolution - 1) - 0.5f) * width;
+            m_vertices[m_resolution * i + j].y = (1.f * j / (m_resolution - 1) - 0.5f) * height;
             m_vertices[m_resolution * i + j].z = 0.f;
         }
     }
@@ -36,9 +50,31 @@ Mesh Mesh::CreateCircle(float radius, int resolution)
     return mesh.CreateSector(radius, 2 * PI);
 }
 
+Mesh Mesh::CreateHalfCircle(float radius, int resolution)
+{
+    Mesh mesh = Mesh(resolution);
+    return mesh.CreateSector(radius, PI);
+}
+
+Mesh Mesh::CreateSquare(float size, int resolution)
+{
+    Mesh mesh = Mesh(resolution);
+    return mesh.CreateRect(size,size);
+}
+
+Mesh Mesh::CreateRectangle(float width, float height, int resolution)
+{
+    Mesh mesh = Mesh(resolution);
+    return mesh.CreateRect(width,height);
+}
+
 std::vector<Mesh::Vertex> Mesh::GetVertices()
 {
     return m_vertices;
+}
+
+void Mesh::Rotate(float rotationMatrix[])
+{
 }
 
 Mesh Mesh::DefaultMesh()
