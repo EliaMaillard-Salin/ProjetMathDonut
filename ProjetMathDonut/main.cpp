@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     Settings settings = Settings();
     if (settings.HandleSettings(argc, argv) == false)
         return 0;
-    Screen screen = Screen(settings.GetWidth(), settings.GetHeight());
+    Screen screen = Screen(settings);
 
     screen.Draw(settings.currentMesh);
     screen.Display();

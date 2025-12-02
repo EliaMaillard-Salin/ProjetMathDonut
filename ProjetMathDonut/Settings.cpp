@@ -4,30 +4,56 @@
 
 #include <Windows.h>
 
-Settings::Settings() : m_width(0), m_height(0), currentMesh(Mesh::DefaultMesh()),resolution(15)
+Settings::Settings() : 
+    m_width(100),m_height(20),
+    m_screenBackground(' '), m_screenMeshProjection('X'),
+    m_zScreenPosition(3.33f), m_zMeshPosition(5.f),
+    m_meshResolution(32), currentMesh(Mesh::DefaultMesh())
 {}
 
 bool Settings::HandleSettings(int argC, char** argV)
 {
     for (int i = 1; i + 1 < argC; i++)
     {
-        if (std::string(argV[i]) == "-w")
+        std::string arg = std::string(argV[i]);
+        if (arg == "-w")
         {
             m_width = std::atoi(argV[i + 1]);
             ++i;
         }
-        if (std::string(argV[i]) == "-h")
+        else if (arg == "-h")
         {
             m_height = std::atoi(argV[i + 1]);
             ++i;
         }
-        if (std::string(argV[i]) == "-res")
+        else if (arg == "-res")
         {
-            resolution = std::atoi(argV[i + 1]);
+            m_meshResolution = std::atoi(argV[i + 1]);
             ++i;
         }
+        else if (arg == "-b")
+        {
+            m_screenBackground = argV[i + 1][0];
+            i++;
+        }
+        else if (arg == "-p")
+        {
+            m_screenMeshProjection = argV[i + 1][0];
+            i++;
+        }
+        else if (arg == "-s")
+        {
+            m_zScreenPosition = std::atof(argV[i + 1]);
+            i++;
+        }
+        else if (arg == "-m")
+        {
+            m_zMeshPosition = std::atof(argV[i + 1]);
+            i++;
+        }
 
-        if (std::string(argV[i]) == "--C")
+        // Handle MeshType
+        else if (std::string(argV[i]) == "--C")
         {
             if (i + 2 >= argC)
                 continue;
@@ -38,7 +64,7 @@ bool Settings::HandleSettings(int argC, char** argV)
             }
         }
 
-        if (std::string(argV[i]) == "--HC")
+        else if (std::string(argV[i]) == "--HC")
         {
             if (i + 2 >= argC)
                 continue;
@@ -49,7 +75,7 @@ bool Settings::HandleSettings(int argC, char** argV)
             }
         }
 
-        if (std::string(argV[i]) == "--R")
+        else if (std::string(argV[i]) == "--R")
         {
             if (i + 2 >= argC)
                 continue;
@@ -72,7 +98,7 @@ bool Settings::HandleSettings(int argC, char** argV)
             }
         }
 
-        if (std::string(argV[i]) == "--S")
+        else if (std::string(argV[i]) == "--S")
         {
             if (i + 2 >= argC)
                 continue;
@@ -94,22 +120,22 @@ bool Settings::HandleSettings(int argC, char** argV)
 
 void Settings::GenerateCircle(float radius)
 {
-    currentMesh = Mesh::CreateCircle(radius,resolution);
+    currentMesh = Mesh::CreateCircle(radius,m_meshResolution);
 }
 
 void Settings::GenerateHalfCircle(float radius)
 {
-    currentMesh = Mesh::CreateHalfCircle(radius,resolution);
+    currentMesh = Mesh::CreateHalfCircle(radius, m_meshResolution);
 }
 
 void Settings::GenerateSquare(float size)
 {
-    currentMesh = Mesh::CreateSquare(size, resolution);
+    currentMesh = Mesh::CreateSquare(size, m_meshResolution);
 }
 
 void Settings::GenerateRectangle(float width, float height)
 {
-    currentMesh = Mesh::CreateRectangle(width,height, resolution);
+    currentMesh = Mesh::CreateRectangle(width,height, m_meshResolution);
 }
 
 int Settings::GetHeight()

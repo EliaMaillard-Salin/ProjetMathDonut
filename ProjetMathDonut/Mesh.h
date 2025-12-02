@@ -4,6 +4,8 @@
 
 class Mesh
 {
+
+public:
 	struct Vertex
 	{
 		float x;
@@ -12,6 +14,7 @@ class Mesh
 		char value;
 	};
 
+private:
 
 	Mesh& CreateSector(float radius, float angle);
 	Mesh& CreateRect(float width, float height);
