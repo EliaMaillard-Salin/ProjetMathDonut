@@ -13,20 +13,21 @@ Mesh::Mesh(int _resolution): m_vertices(std::vector<Vertex>(_resolution* _resolu
 {
 }
 
-Mesh& Mesh::CreateSector(float radius, float angle)
+std::vector<Mesh::Vertex>& Mesh::CreateSector(float radius, float angle)
 {
+    std::vector<Mesh::Vertex> resVertices = std::vector<Mesh::Vertex>(m_resolution * m_resolution);
     for (int i = 0; i < m_resolution; i++)
     {
         float r = (radius * i) / (m_resolution - 1);
         for (int j = 0; j < m_resolution; j++)
         {
             float theta = (angle * j) / (m_resolution - 1);
-            m_vertices[m_resolution * i + j].x = radius * std::cos(theta);
-            m_vertices[m_resolution * i + j].y = radius * std::sin(theta);
-            m_vertices[m_resolution * i + j].z = 0.f;
+            resVertices[m_resolution * i + j].x = radius * std::cos(theta);
+            resVertices[m_resolution * i + j].y = radius * std::sin(theta);
+            resVertices[m_resolution * i + j].z = 0.f;
         }
     }
-    return *this;
+    return resVertices;
 }
 
 Mesh& Mesh::CreateRect(float width, float height)
@@ -47,7 +48,8 @@ Mesh& Mesh::CreateRect(float width, float height)
 Mesh Mesh::CreateCircle(float radius, int resolution)
 {
     Mesh mesh = Mesh(resolution);
-    return mesh.CreateSector(radius, 2 * PI);
+    mesh.m_vertices = mesh.CreateSector(radius, 2 * PI);
+    return mesh;
 }
 
 Mesh Mesh::CreateHalfCircle(float radius, int resolution)
@@ -68,13 +70,14 @@ Mesh Mesh::CreateRectangle(float width, float height, int resolution)
     return mesh.CreateRect(width,height);
 }
 
+Mesh Mesh::CreateDonut(float r1, float r2, int resolution)
+{
+    return Mesh::DefaultMesh();
+}
+
 std::vector<Mesh::Vertex> Mesh::GetVertices()
 {
     return m_vertices;
-}
-
-void Mesh::Rotate(float rotationMatrix[])
-{
 }
 
 Mesh Mesh::DefaultMesh()
@@ -91,5 +94,33 @@ void Mesh::Debug()
     for (int i = 0; i < m_vertices.size(); i++)
     {
         std::cout << "X : " << m_vertices[i].x << "; Y : "<< m_vertices[i].y << "; Z : " << m_vertices[i].z << std::endl;
+    }
+}
+
+void Mesh::Vertex::Rotate(float angle, Axis axis)
+{
+    Vertex previous = *this;
+    switch (axis)
+    {
+    case Axis::X:
+    {
+        y = previous.y * std::cos(angle) - previous.z * std::sin(angle);
+        z = previous.y * std::sin(angle) + previous.z * std::cos(angle);
+    }
+    break;
+    case Axis::Y:
+    {
+        x = previous.x * std::cos(angle) + previous.z * std::sin(angle);
+        z = -previous.x * std::sin(angle) + previous.z * std::cos(angle);
+    }
+        break;
+    case Axis::Z:
+    {
+        x = previous.x * std::cos(angle) - previous.y * std::sin(angle);
+        y = previous.x * std::sin(angle) + previous.y * std::cos(angle);
+    }
+        break;
+    default:
+        break;
     }
 }

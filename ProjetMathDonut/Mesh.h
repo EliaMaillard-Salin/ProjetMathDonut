@@ -2,6 +2,11 @@
 
 #include <vector>
 
+
+enum Axis {
+	X, Y, Z
+};
+
 class Mesh
 {
 
@@ -12,15 +17,18 @@ public:
 		float y;
 		float z;
 		char value;
+		void Rotate(float angle, Axis axis);
 	};
 
 private:
 
-	Mesh& CreateSector(float radius, float angle);
+	std::vector<Mesh::Vertex>& CreateSector(float radius, float angle);
 	Mesh& CreateRect(float width, float height);
 	int m_resolution;
-	int posX = 0;
-	int posY = 0;
+
+	float posX = 0;
+	float posY = 0;
+	float posZ = 0;
 
 public:
 	std::vector<Vertex> m_vertices;
@@ -30,13 +38,18 @@ public:
 
 	std::vector<Vertex> GetVertices();
 
-	void Rotate(float rotationMatrix[]);
-
 	static Mesh DefaultMesh();
 	static Mesh CreateCircle(float radius, int resolution = 40);
 	static Mesh CreateHalfCircle(float radius = 32.0f,int resolution = 10);
 	static Mesh CreateSquare(float size = 32.0f,int resolution = 10);
 	static Mesh CreateRectangle(float width,float height, int resolution = 10);
+	static Mesh CreateDonut(float r1, float r2, int resolution = 50);
+	void SetPosition(float x, float y, float z) { posX = x; posY = y; posZ = z; }
+
+	float GetPosX() { return posX; }
+	float GetPosY() { return posY; }
+	float GetPosZ() { return posZ; }
+
 	//Mesh CreateSquare(float radius = 32.0f,int resolution = 10);
 
 	//Mesh& CreateCustom(std::vector<Vertex>);

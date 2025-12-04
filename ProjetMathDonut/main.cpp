@@ -20,9 +20,18 @@ int main(int argc, char** argv)
     Settings settings = Settings();
     if (settings.HandleSettings(argc, argv) == false)
         return 0;
-    Screen screen = Screen(settings);
+    //Screen screen = Screen(settings);
 
-    screen.Draw(settings.currentMesh);
+    Screen screen = Screen(75, 25, 'X', '.');
+    Mesh FirstCircle = Mesh::CreateCircle(10, 30);
+    Mesh SecondCircle = Mesh::CreateCircle(10, 30);
+
+    FirstCircle.SetPosition(-12.5f, 0.0f, 0.0f);
+    SecondCircle.SetPosition(12.5f, 0.0f, 0.0f);
+
+    screen.ResetScreen();
+    screen.Draw(FirstCircle);
+    screen.Draw(SecondCircle);
     screen.Display();
     while (true)
     {
