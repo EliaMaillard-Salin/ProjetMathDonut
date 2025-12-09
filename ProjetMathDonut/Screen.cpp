@@ -25,7 +25,7 @@ void Screen::ResetScreen()
     for (int h = 0; h < m_height; h++)
     {
         std::fill(m_pixels[h].begin(), m_pixels[h].end(), m_background);
-        std::fill(m_oozBuffer[h].begin(), m_oozBuffer[h].end(), -1.f);
+        std::fill(m_oozBuffer[h].begin(), m_oozBuffer[h].end(), 0.f);
     }
 
 }
@@ -33,7 +33,7 @@ void Screen::ResetScreen()
 void Screen::Display()
 {
     std::cout << "\033[?25l";
-    std::cout << "\033[2J";
+    //std::cout << "\033[2J";
     std::cout << "\033[H";
 
     for (int h = 0; h < m_height; h++)
@@ -42,7 +42,7 @@ void Screen::Display()
         {
             std::cout << m_pixels[h][w];
         }
-        std::cout << ".\n";
+        std::cout << "" << std::endl;;
     }
 
     std::cout << "\033[?25h";
@@ -53,38 +53,28 @@ void Screen::Draw(Mesh& mesh)
 {
     for (Mesh::Vertex vertice : mesh.m_vertices)
     {
-        //_ProjectInCenterScreenSpace(&vertice);
-        //_ProjectInTopLeftScreenSpace(&vertice);
-        //int u = std::round(vertice.x);
-        //int v = std::round(vertice.y);
-        //float ooz = 1.0f / vertice.z;
 
         int u  = std::round(m_centerX + vertice.x + mesh.GetPosX());
         int v = std::round((m_centerY + vertice.y) * 0.5f + mesh.GetPosY());
         float z = vertice.z + mesh.GetPosZ();
 
-        if (_IsVertexInScreen(u, v) && z > m_oozBuffer[v][u])
+        if (_IsVertexInScreen(u, v))
         {
+            m_pixels[v][u] = _CheckDeph(z, m_oozBuffer[v][u]);
             m_oozBuffer[v][u] = z;
-            m_pixels[v][u] = m_meshProjection;
         }
     }
-}
-
-void Screen::_ProjectInCenterScreenSpace(Mesh::Vertex* vertex)
-{
-    vertex->z += m_meshZPosition;
-    vertex->x = m_zPosition * vertex->x / vertex->z;
-    vertex->y = m_zPosition * vertex->y / vertex->z / 2.f;
-}
-
-void Screen::_ProjectInTopLeftScreenSpace(Mesh::Vertex* vertex)
-{
-    vertex->x += m_width / 2;
-    vertex->y += m_height / 2;
 }
 
 bool Screen::_IsVertexInScreen(int u, int v)
 {
     return u >= 0 && u < m_width && v >= 0 && v < m_height;
+}
+
+char Screen::_CheckDeph(float vertexZ, float currentDeph)
+{
+    if (vertexZ >= currentDeph)
+        return 'X';
+    else if (vertexZ < currentDeph)
+        return '.';
 }

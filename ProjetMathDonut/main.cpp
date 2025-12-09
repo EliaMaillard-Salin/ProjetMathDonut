@@ -6,6 +6,8 @@
 
 #include <Windows.h>
 
+#define PI 3.14159
+
 // Clear : [2J
 // SetCursor 0,0 : [H
 // Cursor Invisible : [?25l
@@ -22,19 +24,23 @@ int main(int argc, char** argv)
         return 0;
     //Screen screen = Screen(settings);
 
-    Screen screen = Screen(75, 25, 'X', '.');
-    Mesh FirstCircle = Mesh::CreateCircle(10, 30);
-    Mesh SecondCircle = Mesh::CreateCircle(10, 30);
+    Screen screen = Screen(75, 25, 'X', ' ');
+    Mesh donut = Mesh::CreateTorus(15, 5,70);
+    donut.SetPosition(0.0f, 5.0f, 0.0f);
+    //Mesh SecondCircle = Mesh::CreateCircle(10, 30);
 
-    FirstCircle.SetPosition(-12.5f, 0.0f, 0.0f);
-    SecondCircle.SetPosition(12.5f, 0.0f, 0.0f);
+    //FirstCircle.SetPosition(-12.5f, 0.0f, 0.0f);
+    //SecondCircle.SetPosition(12.5f, 0.0f, 0.0f);
 
-    screen.ResetScreen();
-    screen.Draw(FirstCircle);
-    screen.Draw(SecondCircle);
-    screen.Display();
+    //screen.Draw(SecondCircle);
     while (true)
     {
+        screen.ResetScreen();
+        screen.Draw(donut);
+        screen.Display();
+
+        donut.Rotate(0.08f, Axis::X);
+        //donut.Rotate(0.02f, Axis::Y);
     }
 
     return 0;

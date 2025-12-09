@@ -70,9 +70,24 @@ Mesh Mesh::CreateRectangle(float width, float height, int resolution)
     return mesh.CreateRect(width,height);
 }
 
-Mesh Mesh::CreateDonut(float r1, float r2, int resolution)
+Mesh Mesh::CreateTorus(float majorRadius, float minorRadius, int resolution)
 {
-    return Mesh::DefaultMesh();
+    Mesh mesh = Mesh(resolution);
+    mesh.m_vertices.resize(resolution * resolution);
+
+    for (int i = 0; i < resolution; i++)
+    {
+        float angleY = (2 * PI * i) / (resolution);
+        for (int j = 0; j < resolution; j++)
+        {
+            float theta = (2*PI * j) / (resolution);
+            mesh.m_vertices[resolution * i + j].x = majorRadius + minorRadius * std::cos(theta);
+            mesh.m_vertices[resolution * i + j].y = minorRadius * std::sin(theta);
+            mesh.m_vertices[resolution * i + j].Rotate(angleY, Axis::Y);
+        }
+    }
+
+    return mesh;
 }
 
 std::vector<Mesh::Vertex> Mesh::GetVertices()
@@ -94,6 +109,14 @@ void Mesh::Debug()
     for (int i = 0; i < m_vertices.size(); i++)
     {
         std::cout << "X : " << m_vertices[i].x << "; Y : "<< m_vertices[i].y << "; Z : " << m_vertices[i].z << std::endl;
+    }
+}
+
+void Mesh::Rotate(float angle, Axis axis)
+{
+    for (int i = 0; i < m_vertices.size(); i++)
+    {
+        m_vertices[i].Rotate(angle, axis);
     }
 }
 

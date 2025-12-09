@@ -20,8 +20,7 @@ class Screen
 	std::vector<std::vector<char>> m_pixels;
 	std::vector<std::vector<float>> m_oozBuffer;
 	bool _IsVertexInScreen(int u, int v);
-	void _ProjectInCenterScreenSpace(Mesh::Vertex* vertex);
-	void _ProjectInTopLeftScreenSpace(Mesh::Vertex* vertex);
+	char _CheckDeph(float vertexZ, float currentDeph);
 
 public:
 	Screen(Settings& settings);

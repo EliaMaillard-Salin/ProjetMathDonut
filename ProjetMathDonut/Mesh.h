@@ -37,13 +37,14 @@ public:
 	Mesh(int _resolution);
 
 	std::vector<Vertex> GetVertices();
+	void Rotate(float angle, Axis axis);
 
 	static Mesh DefaultMesh();
 	static Mesh CreateCircle(float radius, int resolution = 40);
 	static Mesh CreateHalfCircle(float radius = 32.0f,int resolution = 10);
 	static Mesh CreateSquare(float size = 32.0f,int resolution = 10);
 	static Mesh CreateRectangle(float width,float height, int resolution = 10);
-	static Mesh CreateDonut(float r1, float r2, int resolution = 50);
+	static Mesh CreateTorus(float majorRadius, float minorRadius, int resolution = 50);
 	void SetPosition(float x, float y, float z) { posX = x; posY = y; posZ = z; }
 
 	float GetPosX() { return posX; }
