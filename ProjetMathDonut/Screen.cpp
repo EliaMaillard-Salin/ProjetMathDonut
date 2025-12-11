@@ -18,23 +18,28 @@ Screen::Screen(int width, int height, char meshProjection, char screenProjection
     m_zPosition(0.0f), m_meshZPosition(0.0f),
     m_background(screenProjection), m_meshProjection(meshProjection),
     m_pixels(m_height, std::vector<char>(m_width, m_background)), m_oozBuffer(m_height, std::vector<float>(m_width, 0.0f))
-{}
+{
+}
+
+void Screen::Start()
+{
+    std::cout << "\x1b[?25l";
+    std::cout << "\x1b[2J";
+}
 
 void Screen::ResetScreen()
 {
     for (int h = 0; h < m_height; h++)
     {
         std::fill(m_pixels[h].begin(), m_pixels[h].end(), m_background);
-        std::fill(m_oozBuffer[h].begin(), m_oozBuffer[h].end(), 0.f);
+        std::fill(m_oozBuffer[h].begin(), m_oozBuffer[h].end(), -1.f);
     }
 
 }
 
 void Screen::Display()
 {
-    std::cout << "\033[?25l";
-    //std::cout << "\033[2J";
-    std::cout << "\033[H";
+    std::cout << "\x1b[H";
 
     for (int h = 0; h < m_height; h++)
     {
@@ -42,11 +47,8 @@ void Screen::Display()
         {
             std::cout << m_pixels[h][w];
         }
-        std::cout << "" << std::endl;;
+        std::cout << "" << std::endl;
     }
-
-    std::cout << "\033[?25h";
-
 }
 
 void Screen::Draw(Mesh& mesh)
@@ -60,7 +62,7 @@ void Screen::Draw(Mesh& mesh)
 
         if (_IsVertexInScreen(u, v))
         {
-            m_pixels[v][u] = _CheckDeph(z, m_oozBuffer[v][u]);
+            m_pixels[v][u] = m_meshProjection; //_CheckDeph(z, m_oozBuffer[v][u]);
             m_oozBuffer[v][u] = z;
         }
     }
@@ -75,6 +77,6 @@ char Screen::_CheckDeph(float vertexZ, float currentDeph)
 {
     if (vertexZ >= currentDeph)
         return 'X';
-    else if (vertexZ < currentDeph)
+    else
         return '.';
 }

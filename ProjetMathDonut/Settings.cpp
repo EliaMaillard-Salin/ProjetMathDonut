@@ -108,6 +108,30 @@ bool Settings::HandleSettings(int argC, char** argV)
                 i += 2;
             }
         }
+
+        else if (std::string(argV[i]) == "--T")
+        {
+            if (i + 2 >= argC)
+                continue;
+            int minorRadius = 0;
+            int majorRadius = 0;
+
+            if (std::string(argV[i + 1]) == "-MaR")
+            {
+                majorRadius = std::atof(argV[i + 2]);
+            }
+
+            if (std::string(argV[i + 3]) == "-MiR")
+            {
+                minorRadius = std::atof(argV[i + 4]);
+            }
+
+            if (minorRadius != 0 && majorRadius != 0)
+            {
+                currentMesh = Mesh::CreateTorus(majorRadius, minorRadius, m_meshResolution);
+                i += 4;
+            }
+        }
     }
 
     if (m_width == 0 || m_height == 0)

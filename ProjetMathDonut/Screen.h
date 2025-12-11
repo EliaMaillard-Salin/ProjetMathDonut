@@ -25,6 +25,7 @@ class Screen
 public:
 	Screen(Settings& settings);
 	Screen(int width, int height, char meshProjection, char screenProjection);
+	void Start();
 	void ResetScreen();
 	void Display();
 	void Draw(Mesh& mesh);

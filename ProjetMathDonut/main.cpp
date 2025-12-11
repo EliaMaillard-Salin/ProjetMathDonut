@@ -6,6 +6,8 @@
 
 #include <Windows.h>
 
+#include <signal.h>
+
 #define PI 3.14159
 
 // Clear : [2J
@@ -15,32 +17,39 @@
 
 // ANSI Command : https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
+void OnKill(int param)
+{
+    std::cout << "\n";
+    std::cout << "\033[2J";
+    std::cout << "\033[?25h";
+    std::cout << "End" << std::endl;
+    exit(param);
+}
 
 int main(int argc, char** argv)
 {
-
+    signal(SIGINT, OnKill);
     Settings settings = Settings();
     if (settings.HandleSettings(argc, argv) == false)
         return 0;
-    //Screen screen = Screen(settings);
+    Screen screen = Screen(settings);
 
-    Screen screen = Screen(75, 25, 'X', ' ');
-    Mesh donut = Mesh::CreateTorus(15, 5,70);
-    donut.SetPosition(0.0f, 5.0f, 0.0f);
+    //Screen screen = Screen(75, 25, 'X', ' ');
+    Mesh donut = settings.currentMesh;
     //Mesh SecondCircle = Mesh::CreateCircle(10, 30);
 
-    //FirstCircle.SetPosition(-12.5f, 0.0f, 0.0f);
+    donut.SetPosition(donut.GetPosX(), donut.GetPosY() + 10.0f, donut.GetPosZ());
     //SecondCircle.SetPosition(12.5f, 0.0f, 0.0f);
 
     //screen.Draw(SecondCircle);
+    screen.Start();
     while (true)
     {
         screen.ResetScreen();
         screen.Draw(donut);
         screen.Display();
-
         donut.Rotate(0.08f, Axis::X);
-        //donut.Rotate(0.02f, Axis::Y);
+        donut.Rotate(0.02f, Axis::Y);
     }
 
     return 0;

@@ -14,7 +14,6 @@ class Settings
 
 public:
 	Mesh currentMesh;
-
 	Settings();
 	
 	bool HandleSettings(int argC, char** argV);

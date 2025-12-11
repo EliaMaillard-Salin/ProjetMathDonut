@@ -9,8 +9,8 @@ enum Axis {
 
 class Mesh
 {
-
 public:
+
 	struct Vertex
 	{
 		float x;

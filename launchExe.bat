@@ -1,0 +1,1 @@
+.\ProjetMathDonut.exe -w 100 -h 40 -res 80 -b . -p X -s 0.0f -m 2.0f --T -MaR 25 -MiR 10

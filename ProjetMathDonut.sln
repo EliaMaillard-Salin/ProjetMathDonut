@@ -17,6 +17,8 @@ Global
 		Rectangle|x86 = Rectangle|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		TORUS|x64 = TORUS|x64
+		TORUS|x86 = TORUS|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Circle|x64.ActiveCfg = Circle|x64
@@ -39,6 +41,10 @@ Global
 		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x64.Build.0 = Release|x64
 		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x86.ActiveCfg = Release|Win32
 		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.Release|x86.Build.0 = Release|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.TORUS|x64.ActiveCfg = TORUS|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.TORUS|x64.Build.0 = TORUS|x64
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.TORUS|x86.ActiveCfg = TORUS|Win32
+		{99A3B569-E56C-4AC0-AF66-E20FBDA104D3}.TORUS|x86.Build.0 = TORUS|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
