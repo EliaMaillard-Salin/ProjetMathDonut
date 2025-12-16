@@ -16,14 +16,20 @@ public:
 		float x;
 		float y;
 		float z;
+
+		float nx;
+		float ny;
+		float nz;
+
 		char value;
 		void Rotate(float angle, Axis axis);
 	};
 
 private:
 
-	std::vector<Mesh::Vertex>& CreateSector(float radius, float angle);
+	Mesh& CreateSector(float radius, float angle);
 	Mesh& CreateRect(float width, float height);
+
 	int m_resolution;
 
 	float posX = 0;

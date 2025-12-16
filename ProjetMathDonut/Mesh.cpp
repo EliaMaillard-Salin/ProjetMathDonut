@@ -13,21 +13,24 @@ Mesh::Mesh(int _resolution): m_vertices(std::vector<Vertex>(_resolution* _resolu
 {
 }
 
-std::vector<Mesh::Vertex>& Mesh::CreateSector(float radius, float angle)
+Mesh& Mesh::CreateSector(float radius, float angle)
 {
-    std::vector<Mesh::Vertex> resVertices = std::vector<Mesh::Vertex>(m_resolution * m_resolution);
+    m_vertices = std::vector<Mesh::Vertex>(m_resolution * m_resolution);
     for (int i = 0; i < m_resolution; i++)
     {
         float r = (radius * i) / (m_resolution - 1);
         for (int j = 0; j < m_resolution; j++)
         {
             float theta = (angle * j) / (m_resolution - 1);
-            resVertices[m_resolution * i + j].x = radius * std::cos(theta);
-            resVertices[m_resolution * i + j].y = radius * std::sin(theta);
-            resVertices[m_resolution * i + j].z = 0.f;
+            m_vertices[m_resolution * i + j].x = radius * std::cos(theta);
+            m_vertices[m_resolution * i + j].y = radius * std::sin(theta);
+            m_vertices[m_resolution * i + j].z = 0.f;
+            m_vertices[m_resolution * i + j].nx = std::cos(theta);
+            m_vertices[m_resolution * i + j].ny = std::sin(theta);
+            m_vertices[m_resolution * i + j].nz = 0;
         }
     }
-    return resVertices;
+    return *this;
 }
 
 Mesh& Mesh::CreateRect(float width, float height)
@@ -45,11 +48,11 @@ Mesh& Mesh::CreateRect(float width, float height)
     return *this;
 }
 
+
 Mesh Mesh::CreateCircle(float radius, int resolution)
 {
     Mesh mesh = Mesh(resolution);
-    mesh.m_vertices = mesh.CreateSector(radius, 2 * PI);
-    return mesh;
+    return mesh.CreateSector(radius, 2 * PI);
 }
 
 Mesh Mesh::CreateHalfCircle(float radius, int resolution)
@@ -84,6 +87,9 @@ Mesh Mesh::CreateTorus(float majorRadius, float minorRadius, int resolution)
             mesh.m_vertices[resolution * i + j].x = majorRadius + minorRadius * std::cos(theta);
             mesh.m_vertices[resolution * i + j].y = minorRadius * std::sin(theta);
             mesh.m_vertices[resolution * i + j].Rotate(angleY, Axis::Y);
+            mesh.m_vertices[resolution * i + j].nx = std::cos(theta);
+            mesh.m_vertices[resolution * i + j].ny = std::sin(theta);
+            mesh.m_vertices[resolution * i + j].nz = 0;
         }
     }
 
@@ -108,7 +114,8 @@ void Mesh::Debug()
 
     for (int i = 0; i < m_vertices.size(); i++)
     {
-        std::cout << "X : " << m_vertices[i].x << "; Y : "<< m_vertices[i].y << "; Z : " << m_vertices[i].z << std::endl;
+        std::cout << "Coords : {X: " << std::round(m_vertices[i].x) << "; Y: " << std::round(m_vertices[i].y) << "; Z: " << std::round(m_vertices[i].z) << "}";
+        std::cout << "\t Normals : {NX : " << m_vertices[i].nx << "; NY : "<< m_vertices[i].ny << "; NZ : " << m_vertices[i].nz << "}" << std::endl;
     }
 }
 
