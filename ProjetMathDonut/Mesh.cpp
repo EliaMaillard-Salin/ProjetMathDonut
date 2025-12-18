@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "Light.h"
+
 #define PI 3.14159
 
 
@@ -114,7 +116,7 @@ void Mesh::Debug()
 
     for (int i = 0; i < m_vertices.size(); i++)
     {
-        std::cout << "Coords : {X: " << std::round(m_vertices[i].x) << "; Y: " << std::round(m_vertices[i].y) << "; Z: " << std::round(m_vertices[i].z) << "}";
+        std::cout << "Coords : {X: " << std::round(m_vertices[i].x) << ";Y: " << std::round(m_vertices[i].y) << ";Z: " << std::round(m_vertices[i].z) << "}";
         std::cout << "\t Normals : {NX : " << m_vertices[i].nx << "; NY : "<< m_vertices[i].ny << "; NZ : " << m_vertices[i].nz << "}" << std::endl;
     }
 }
@@ -153,4 +155,9 @@ void Mesh::Vertex::Rotate(float angle, Axis axis)
     default:
         break;
     }
+}
+
+float Mesh::Vertex::ComputeIllumination(Light const& light) const
+{
+    return nx * light.GetNormalizedLight().nx + ny * light.GetNormalizedLight().ny + nz * light.GetNormalizedLight().nz;
 }

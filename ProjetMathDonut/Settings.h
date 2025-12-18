@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Mesh.h"
+#include "Light.h"
 
 class Settings
 {
@@ -11,6 +12,9 @@ class Settings
 	char m_screenMeshProjection;
 	int m_meshResolution;
 	float m_zMeshPosition;
+	float lightX;
+	float lightY;
+	float lightZ;
 
 public:
 	Mesh currentMesh;
@@ -29,6 +33,10 @@ public:
 	float GetMeshPosition() const { return m_zMeshPosition; }
 	int GetHeight();
 	int GetWidth();
+
+	float GetLightX() const  { return lightX; }
+	float GetLightY() const { return lightY; }
+	float GetLightZ() const { return lightZ; }
 
 };
 

@@ -3,6 +3,7 @@
 #include "Settings.h"
 #include "Screen.h"
 #include "Mesh.h"
+#include "Light.h"
 
 #include <Windows.h>
 
@@ -39,18 +40,19 @@ int main(int argc, char** argv)
     //Mesh SecondCircle = Mesh::CreateCircle(10, 30);
 
     donut.SetPosition(donut.GetPosX(), donut.GetPosY() + 10.0f, donut.GetPosZ());
-    donut.Debug();
+    Light light(settings);
+
+    //donut.Debug();
     //SecondCircle.SetPosition(12.5f, 0.0f, 0.0f);
 
     //screen.Draw(SecondCircle);
-    //screen.Start();
     while (true)
     {
-        //screen.ResetScreen();
-        //screen.Draw(donut);
-        //screen.Display();
-        //donut.Rotate(0.08f, Axis::X);
-        //donut.Rotate(0.02f, Axis::Y);
+        screen.ResetScreen();
+        screen.Draw(donut,light);
+        screen.Display();
+        donut.Rotate(0.08f, Axis::X);
+        donut.Rotate(0.02f, Axis::Y);
     }
 
     return 0;

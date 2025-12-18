@@ -10,7 +10,10 @@ Screen::Screen(Settings& settings) :
     m_zPosition(settings.GetScreenPosition()), m_meshZPosition(settings.GetMeshPosition()),
     m_background(settings.GetScreenBackground()), m_meshProjection(settings.GetScreenMeshProjection()),
     m_pixels(m_height, std::vector<char>(m_width, m_background)), m_oozBuffer(m_height, std::vector<float>(m_width, 0.0f))
-{}
+{
+    std::cout << "\x1b[?25l";
+    std::cout << "\x1b[2J";
+}
 
 Screen::Screen(int width, int height, char meshProjection, char screenProjection) :
     m_width(width), m_height(height),
@@ -19,19 +22,16 @@ Screen::Screen(int width, int height, char meshProjection, char screenProjection
     m_background(screenProjection), m_meshProjection(meshProjection),
     m_pixels(m_height, std::vector<char>(m_width, m_background)), m_oozBuffer(m_height, std::vector<float>(m_width, 0.0f))
 {
-}
-
-void Screen::Start()
-{
     std::cout << "\x1b[?25l";
     std::cout << "\x1b[2J";
 }
+
 
 void Screen::ResetScreen()
 {
     for (int h = 0; h < m_height; h++)
     {
-        std::fill(m_pixels[h].begin(), m_pixels[h].end(), m_background);
+        std::fill(m_pixels[h].begin(), m_pixels[h].end(), ' ');
         std::fill(m_oozBuffer[h].begin(), m_oozBuffer[h].end(), -1.f);
     }
 
@@ -51,7 +51,7 @@ void Screen::Display()
     }
 }
 
-void Screen::Draw(Mesh& mesh)
+void Screen::Draw(Mesh& mesh, Light const& light)
 {
     for (Mesh::Vertex vertice : mesh.m_vertices)
     {
@@ -59,10 +59,17 @@ void Screen::Draw(Mesh& mesh)
         int u  = std::round(m_centerX + vertice.x + mesh.GetPosX());
         int v = std::round((m_centerY + vertice.y) * 0.5f + mesh.GetPosY());
         float z = vertice.z + mesh.GetPosZ();
-
         if (_IsVertexInScreen(u, v))
         {
-            m_pixels[v][u] = m_meshProjection; //_CheckDeph(z, m_oozBuffer[v][u]);
+            float L = vertice.ComputeIllumination(light);
+            if (L > 0.0f)
+            {
+                m_pixels[v][u] = ".,-~:;=!*#$@"[(int)(L * 12)];
+            }
+            else
+            {
+                m_pixels[v][u] = '.';
+            }
             m_oozBuffer[v][u] = z;
         }
     }

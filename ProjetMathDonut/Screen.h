@@ -4,6 +4,8 @@
 #include "Settings.h"
 #include <vector>
 
+class Light;
+
 class Screen
 {
 	int m_width;
@@ -25,9 +27,8 @@ class Screen
 public:
 	Screen(Settings& settings);
 	Screen(int width, int height, char meshProjection, char screenProjection);
-	void Start();
 	void ResetScreen();
 	void Display();
-	void Draw(Mesh& mesh);
+	void Draw(Mesh& mesh, Light const& light);
 };
 

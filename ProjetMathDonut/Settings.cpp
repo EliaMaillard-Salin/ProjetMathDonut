@@ -51,6 +51,21 @@ bool Settings::HandleSettings(int argC, char** argV)
             m_zMeshPosition = std::atof(argV[i + 1]);
             i++;
         }
+        else if (arg == "-lx")
+        {
+            lightX = std::atof(argV[i + 1]);
+            i++;
+        }
+        else if (arg == "-ly")
+        {
+            lightY = std::atof(argV[i + 1]);
+            i++;
+        }
+        else if (arg == "-lz")
+        {
+            lightZ = std::atof(argV[i + 1]);
+            i++;
+        }
 
         // Handle MeshType
         else if (std::string(argV[i]) == "--C")

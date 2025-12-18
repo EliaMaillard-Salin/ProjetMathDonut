@@ -2,6 +2,7 @@
 
 #include <vector>
 
+class Light;
 
 enum Axis {
 	X, Y, Z
@@ -23,6 +24,7 @@ public:
 
 		char value;
 		void Rotate(float angle, Axis axis);
+		float ComputeIllumination(Light const& light) const;
 	};
 
 private:
